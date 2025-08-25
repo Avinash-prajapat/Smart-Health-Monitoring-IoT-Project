@@ -4,317 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Health Monitoring Dashboard</title>
-  <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f5f7fa;
-    color: #333;
-  }
-
-  header {
-    background: #2a9d8f;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-
-  .card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-
-  .card:hover {
-    transform: scale(1.05);
-  }
-
-  .title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  .value {
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .status {
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 6px;
-    display: inline-block;
-  }
-
-  .normal {
-    background: #d4edda;
-    color: #155724;
-  }
-
-  .alert {
-    background: #f8d7da;
-    color: #721c24;
-  }
-
-  /* Center button */
-  .btn-container {
-    text-align: center;
-    margin: 20px;
-  }
-
-  button {
-    padding: 12px 30px;
-    background-color: #2a9d8f;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #21867a;
-  }
-
-  .animated-result {
-    width: 320px;
-    height: 250px;
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
-    animation: fadeIn 1s ease forwards;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-  }
-
-  .animated-result p {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 15px;
-  }
-
-  .happy {
-    background: #e0ffe5;
-    border: 2px solid #28a745;
-    color: #28a745;
-    animation: bounce 1s ease infinite alternate;
-  }
-
-  .danger {
-    background: #ffe0e0;
-    border: 2px solid #dc3545;
-    color: #dc3545;
-    animation: shake 0.8s ease infinite;
-  }
-
-  .emoji {
-    font-size: 60px;
-    animation: scaleUp 0.8s ease-in-out infinite alternate;
-  }
-
-  .hint {
-    font-size: 18px;
-    color: #888;
-  }
-
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes bounce {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-10px); }
-  }
-
-  @keyframes shake {
-    0% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
-    100% { transform: rotate(-2deg); }
-  }
-
-  @keyframes scaleUp {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-  }
-
-  /* ✅ Permanent bottom note */
-  .note {
-    position: fixed;
-    bottom: 10px;          /* sabse niche */
-    left: 50%;             /* center align karne ke liye */
-    transform: translateX(-50%);
-    background: #fff3cd;   /* halka yellow background */
-    color: #856404;        /* text ka rang */
-    padding: 10px 20px;
-    border: 1px solid #ffeeba;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-    width: fit-content;
-    z-index: 999;          /* upar rahe har cheez se */
-  }
-</style>
-<link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
+  <!-- Top Header -->
   <header>Smart Health Monitoring Dashboard</header>
 
-  <!-- Button -->
-  <div class="btn-container">
-    <button onclick="updateStatus()">Check Patient Status</button>
+  <!-- Container: Left(Form) + Right(Output) -->
+  <div class="container">
+
+    <!-- Left: Patient Information Form -->
+    <div class="form-section">
+      <h2>Patient Information</h2>
+      <input type="text" id="patientName" placeholder="Enter Patient Name" required>
+      <input type="number" id="patientAge" placeholder="Enter Age" required>
+      <select id="patientGender">
+        <option value="Male">Gender</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="mobile" id="patientmobile" placeholder="Enter Mobile No." required>
+      <br><br>
+      <!-- Print Button -->
+      <button onclick="printReport()">🖨️ Print Report</button>
+    </div>
+
+    <!-- Right: Dashboard + Result -->
+    <div class="output-section">
+
+      <!-- Dashboard Cards -->
+      <div class="dashboard">
+        <div class="card">
+          <div class="title">Body Temperature 🌡️</div>
+          <div class="value" id="temp">37 °C</div>
+          <div class="status normal" id="tempStatus">✅ Normal</div>
+        </div>
+
+        <div class="card">
+          <div class="title">Heart Rate <br> ❤️</div>
+          <div class="value" id="heart">82 BPM</div>
+          <div class="status normal" id="heartStatus">✅ Normal</div>
+        </div>
+
+        <div class="card">
+          <div class="title">Oxygen Level (SpO₂) 🫁</div>
+          <div class="value" id="oxygen">95 %</div>
+          <div class="status normal" id="oxygenStatus">✅ Normal</div>
+        </div>
+
+        <div class="card">
+          <div class="title">Room Humidity 💧</div>
+          <div class="value" id="humidity">55 %</div>
+          <div class="status normal" id="humidityStatus">✅ Normal</div>
+        </div>
+
+        <div class="card">
+          <div class="title">Fall Detection <br>🧍‍♂️</div>
+          <div class="value" id="fall">Safe</div>
+          <div class="status normal" id="fallStatus">✅ Normal</div>
+        </div>
+      </div>
+
+  <div class="status-row">
+    <button onclick="updateStatus()">✅ Check Patient Status</button>
+
+    <!-- Result Box -->
+    <div id="resultBox" class="animated-result" style="display:none;">
+      <div class="emoji">❓</div>
+      <p>Click "Check" Button</p>
+      <span class="hint">Overall Patient Status</span>
+    </div>
   </div>
-  
-  <div class="dashboard">
-    <div class="card">
-      <div class="title">Body Temperature 🌡️</div>
-      <div class="value" id="temp">37 °C</div>
-      <div class="status normal" id="tempStatus">✅ Normal</div>
-    </div>
 
-    <div class="card">
-      <div class="title">Heart Rate ❤️</div>
-      <div class="value" id="heart">82 BPM</div>
-      <div class="status normal" id="heartStatus">✅ Normal</div>
-    </div>
-
-    <div class="card">
-      <div class="title">Oxygen Level (SpO₂) 🫁</div>
-      <div class="value" id="oxygen">95 %</div>
-      <div class="status normal" id="oxygenStatus">✅ Normal</div>
-    </div>
-
-    <div class="card">
-      <div class="title">Room Humidity 💧</div>
-      <div class="value" id="humidity">55 %</div>
-      <div class="status normal" id="humidityStatus">✅ Normal</div>
-    </div>
-
-    <div class="card">
-      <div class="title">Fall Detection 🧍‍♂️</div>
-      <div class="value" id="fall">Safe</div>
-      <div class="status normal" id="fallStatus">✅ Normal</div>
-    </div>
   </div>
 
-  <!-- Overall Result (Initially hidden until button click) -->
-  <div id="resultBox" class="animated-result" style="display:none;">
-    <div class="emoji">❓</div>
-    <p>Click "Check" Button</p>
-    <span class="hint">Overall Patient Status</span>
-  </div>
-
-  <!-- Note -->
+  <!-- Permanent Note (Always Bottom) -->
   <div class="note">
     <div class="note-message">
-          <strong>Project:</strong> Smart Health Monitoring Dashboard<br>
-          <strong>Objective:</strong> Display real-time health parameters using web dashboard.<br>
-          <strong>Team Members:</strong> Anish Kumar, Avinash Kumar, Vipul Thakur.
+      <strong>Project:</strong> Smart Health Monitoring Dashboard<br>
+      <strong>Objective:</strong> Display real-time health parameters using web dashboard.<br>
+      <strong>Team Members:</strong> Anish Kumar, Avinash Kumar, Vipul Thakur
     </div>
   </div>
 
-
-  <script>
-    function updateStatus() {
-      // Dummy values (replace later with Arduino)
-      let data = {
-        temp: 37,
-        heart: 82,
-        oxygen: 95,
-        humidity: 55,
-        fall: false
-      };
-
-      let isNormal =
-        (data.temp >= 36 && data.temp <= 37.5) &&
-        (data.heart >= 60 && data.heart <= 100) &&
-        (data.oxygen >= 94) &&
-        (data.humidity >= 30 && data.humidity <= 60) &&
-        (!data.fall);
-
-      let box = document.getElementById("resultBox");
-      box.style.display = "flex";
-
-      if (isNormal) {
-        box.className = "animated-result happy";
-        box.innerHTML = `<div class="emoji">😊</div>
-                         <p>✅ Patient is Normal</p>
-                         <span class="hint">All health parameters are stable</span>`;
-      } else {
-        box.className = "animated-result danger";
-        box.innerHTML = `<div class="emoji">⚠️</div>
-                         <p>🚨 Patient needs Attention!</p>
-                         <span class="hint">One or more parameters are critical</span>`;
-      }
-    }
-
-    /*
-    =====================================================
-    🚀 Arduino/Backend se real-time data ke liye ye use karo
-    =====================================================
-    async function fetchData() {
-        try {
-            let response = await fetch("http://localhost:5000/data"); // Flask/Node API
-            let data = await response.json();
-
-            // HTML me values update karo
-            document.getElementById("temperature").textContent = data.temperature + " °C";
-            document.getElementById("oxygen").textContent = data.oxygen + " %";
-            document.getElementById("heartrate").textContent = data.heartRate + " bpm";
-
-            // Condition check
-            let isNormal =
-              (data.temperature >= 36 && data.temperature <= 37.5) &&
-              (data.heartRate >= 60 && data.heartRate <= 100) &&
-              (data.oxygen >= 94);
-
-            let box = document.getElementById("resultBox");
-            box.style.display = "flex";
-
-            if (isNormal) {
-              box.className = "animated-result happy";
-              box.innerHTML = `<div class="emoji">😊</div>
-                               <p>✅ Patient is Normal</p>
-                               <span class="hint">All health parameters are stable</span>`;
-            } else {
-              box.className = "animated-result danger";
-              box.innerHTML = `<div class="emoji">⚠️</div>
-                               <p>🚨 Patient needs Attention!</p>
-                               <span class="hint">One or more parameters are critical</span>`;
-            }
-
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
-
-    // Har 5 sec me Arduino data fetch hoga
-    // setInterval(fetchData, 5000);
-    */
-</script>
-
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
-
