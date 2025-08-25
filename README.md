@@ -21,6 +21,7 @@ This project implements a **web-based dashboard** for monitoring key health para
 - Animated emojis and hints for overall patient status
 - Permanent bottom note for user guidance
 - Fully responsive design for different screen sizes
+- **Download & Print Patient Report (PDF/Text)** option available
 
 ---
 
@@ -41,6 +42,12 @@ Click the link to open the live dashboard: [Click here](https://avinash-prajapat
 
 ---
 
-## About Me
-**Avinash Kumar** 
-– MCA-AIML student from Bihar. Interested in IoT, AI, Data Analysis, and Python-based projects.
+## Project Team
+- **Anish Kumar**
+- **Avinash Kumar**
+- **Vipul Thakur**
+
+---
+
+## About Me 
+**Avinash Kumar** – MCA-AIML student from Bihar. Interested in IoT, AI, Data Analysis, and Python-based projects."
