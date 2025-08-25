@@ -3,7 +3,7 @@
 ## Overview
 This project implements a **web-based dashboard** for monitoring key health parameters. The dashboard is designed to display real-time data from sensors (or dummy data for testing) with animated alerts and status indicators.
 
-![Dashboard Preview](images/dashboard_preview1.png)
+![Dashboard Preview](images/dashboard_Positive.png)
 
 ---
 ![Dashboard Preview](images/dashboard_preview2.png)<!-- Replace with your actual image path -->
