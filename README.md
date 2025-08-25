@@ -6,7 +6,7 @@ This project implements a **web-based dashboard** for monitoring key health para
 ![Dashboard Preview](images/dashboard_Positive.png)
 
 ---
-![Dashboard Preview](images/dashboard_preview2.png)<!-- Replace with your actual image path -->
+![Dashboard Preview](images/print.png)<!-- Replace with your actual image path -->
 
 ---
 
